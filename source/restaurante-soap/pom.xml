@@ -5,7 +5,7 @@
     <version>2.0.0</version>
     <packaging>pom</packaging>
     <modules>
-      
+    	<module>domino</module>
     </modules>
     <properties>
         <maven.compiler.release>17</maven.compiler.release>

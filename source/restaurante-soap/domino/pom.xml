@@ -1,0 +1,24 @@
+<!-- Identifica o documento como um POM Maven; o esquema auxilia o editor. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- Formato do POM, como na aula 12. -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- Herda a configuração do POM source/restaurante-soap/pom.xml. -->
+  <parent>
+    <groupId>br.edu.soa</groupId>
+    <artifactId>restaurante-soap</artifactId>
+    <!-- Deve corresponder à versão declarada no POM pai. -->
+    <version>2.0.0</version>
+  </parent>
+
+  <!-- Nome deste módulo. groupId e version são herdados do pai. -->
+  <artifactId>dominio</artifactId>
+  <!-- Na fase package, o artefato deste módulo será um arquivo JAR. -->
+  <packaging>jar</packaging>
+
+  <!-- Vazio: o domínio usa apenas Java, sem bibliotecas externas. -->
+  <dependencies>
+  </dependencies>
+</project>
