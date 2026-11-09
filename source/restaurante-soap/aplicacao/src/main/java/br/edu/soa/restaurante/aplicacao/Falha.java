@@ -1,6 +1,6 @@
 // Finalidade: representar uma falha da aplicação com código, tipo e mensagem.
 // [1] O pacote corresponde às pastas br/edu/soa/restaurante/aplicacao.
-package br.edu.restaurante.aplicacao;
+package br.edu.soa.restaurante.aplicacao;
 
 // [2] public: outros módulos podem usar esta classe.
 // final: não permite criar subclasses de Falha.
