@@ -6,6 +6,7 @@
     <packaging>pom</packaging>
     <modules>
     	<module>dominio</module>
+    	<module>aplicacao</module>
     </modules>
     <properties>
         <maven.compiler.release>17</maven.compiler.release>

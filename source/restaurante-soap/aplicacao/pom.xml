@@ -1,0 +1,47 @@
+<!-- Finalidade: configurar aplicacao; [1] este XML descreve seu projeto Maven. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- Formato do POM; este 4.0.0 não indica a versão do Maven instalado. -->
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- [2] Herda configurações do POM ../pom.xml: restaurante-soap. -->
+  <parent>
+    <groupId>br.edu.soa</groupId>
+    <artifactId>restaurante-soap</artifactId>
+    <!-- Versão dos artefatos deste laboratório, alinhada com o pai. -->
+    <version>2.0.0</version>
+  </parent>
+
+  <!-- [3] O groupId e a version deste módulo são herdados do pai. -->
+  <artifactId>aplicacao</artifactId>
+  <!-- A fase package produzirá um JAR com as classes compiladas. -->
+  <packaging>jar</packaging>
+
+  <!-- [4] Bibliotecas e módulos que este módulo utiliza. -->
+  <dependencies>
+    <!-- A aplicação poderá trabalhar com Mesa, Produto, Pedido etc. -->
+    <dependency>
+      <groupId>br.edu.soa</groupId>
+      <artifactId>dominio</artifactId>
+      <!-- Usa a versão atual de aplicacao, herdada do pai: 2.0.0. -->
+      <version>${project.version}</version>
+    </dependency>
+
+    <!-- [5] JUnit executará os testes das regras na aula 26. -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <!-- Disponível para compilar/executar testes; fora do escopo principal. -->
+      <scope>test</scope>
+    </dependency>
+
+    <!-- Mockito criará substitutos do repositório para os testes. -->
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- As versões de JUnit e Mockito vêm do BOM importado pelo pai. -->
+  </dependencies>
+</project>
