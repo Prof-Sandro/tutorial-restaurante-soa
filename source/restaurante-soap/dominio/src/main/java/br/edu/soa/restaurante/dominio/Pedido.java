@@ -6,7 +6,7 @@ import java.util.List;
 
 public record Pedido(
 		long id,
-		long mesa,
+		long mesaId,
 		Instant dataHora,
 		SituacaoPedido situacao,
 		List<ItemPedido> itens

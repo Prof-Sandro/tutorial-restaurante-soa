@@ -163,7 +163,7 @@ public final class Restaurante {
 		// Exige pedido aberto e coordena a alteração dentro da transação.
 		return alterar(pedidoId, s -> {
 			Produto p = s.produto(produtoId, true);
-			if (!p.disponivel() || !s.categoria(p.categoriaId()).ativo())
+			if (!p.disponivel() || !s.categoria(p.categoriaId()).ativa())
 				throw Falha.conflito("PRODUTO_INDISPONIVEL", "Produto indisponível para novos itens.");
 			s.inserirItem(pedidoId, p, quantidade);
 			return null;
