@@ -123,11 +123,110 @@ public final class Restaurante {
 	public Cardapio cardapio() {
 		return repositorio.transacao(s -> {
 			List<Categoria> cats = s.categorias().stream().filter(Categoria::ativa).toList();
-			return new Cardapio(cats, s.produtos().stream().filter(p -> cats.stream().anyMatch(c -> c.id() == p.categoriaId())).toList());
+			return new Cardapio(cats,
+					s.produtos().stream().filter(p -> cats.stream().anyMatch(c -> c.id() == p.categoriaId())).toList());
 		});
 	}
 
 	public record Cardapio(List<Categoria> categorias, List<Produto> produtos) {
+	}
+
+	// Exige mesa livre e registra a abertura e sua ocupação na mesma transação.
+	public Pedido abrirPedido(long mesaId) {
+		return repositorio.transacao(s -> {
+			if (s.mesa(mesaId, true).situacao() != SituacaoMesa.LIVRE)
+				throw Falha.conflito("MESA_OCUPADA", "Esta mesa já possui um pedido aberto.");
+			Pedido pedido = s.inserirPedido(mesaId);
+			s.ocuparMesa(mesaId, SituacaoMesa.OCUPADA);
+			return pedido;
+		});
+	}
+
+	public Pedido consultarPedido(long id) {
+		return repositorio.transacao(s -> s.pedido(id, false));
+	}
+
+	public List<Pedido> listarPedidos() {
+		return repositorio.transacao(Repositorio.Sessao::pedidos);
+	}
+
+	public List<Pedido> listarPedidosPorMesa(long mesaId) {
+		return repositorio.transacao(s -> {
+			s.mesa(mesaId, false);
+			return s.pedidos().stream().filter(p -> p.mesaId() == mesaId).toList();
+		});
+	}
+
+	// Confere disponibilidade e inclui o produto com seus dados históricos.
+	public Pedido adicionarItem(long pedidoId, long produtoId, int quantidade) {
+		quantidade(quantidade);
+		// Exige pedido aberto e coordena a alteração dentro da transação.
+		return alterar(pedidoId, s -> {
+			Produto p = s.produto(produtoId, true);
+			if (!p.disponivel() || !s.categoria(p.categoriaId()).ativo())
+				throw Falha.conflito("PRODUTO_INDISPONIVEL", "Produto indisponível para novos itens.");
+			s.inserirItem(pedidoId, p, quantidade);
+			return null;
+		});
+	}
+
+	public Pedido atualizarQuantidadeItem(long pedidoId, long itemId, int quantidade) {
+		quantidade(quantidade);
+		// Exige pedido aberto e coordena a alteração dentro da transação.
+		return alterar(pedidoId, s -> {
+			s.quantidadeItem(pedidoId, itemId, quantidade);
+			return null;
+		});
+	}
+
+	public Pedido removerItem(long pedidoId, long itemId) {
+		// Exige pedido aberto e coordena a alteração dentro da transação.
+		return alterar(pedidoId, s -> {
+			s.removerItem(pedidoId, itemId);
+			return null;
+		});
+	}
+
+	// Solicita o encerramento como FECHADO.
+	public Pedido fecharPedido(long id) {
+		return encerrar(id, SituacaoPedido.FECHADO);
+	}
+
+	// Solicita o encerramento como CANCELADO.
+	public Pedido cancelarPedido(long id) {
+		return encerrar(id, SituacaoPedido.CANCELADO);
+	}
+
+	// Encerra o pedido e libera a mesa de forma transacional.
+	private Pedido encerrar(long id, SituacaoPedido estado) {
+		// Exige pedido aberto e coordena a alteração dentro da transação.
+		return alterar(id, s -> {
+			Pedido p = s.pedido(id, false);
+			if (estado == SituacaoPedido.FECHADO && p.itens().isEmpty())
+				throw Falha.invalido("Pedido vazio não pode ser fechado; use cancelar.");
+			s.mesa(p.mesaId(), true);
+			s.encerrarPedido(id, estado);
+			s.ocuparMesa(p.mesaId(), SituacaoMesa.LIVRE);
+			return null;
+		});
+	}
+
+	// Exige pedido aberto e coordena a alteração dentro da transação.
+	private Pedido alterar(long id, Function<Repositorio.Sessao, Void> acao) {
+		return repositorio.transacao(s -> {
+			Pedido atual = s.pedido(id, true);
+			if (atual.situacao() != SituacaoPedido.ABERTO)
+				throw Falha.conflito("PEDIDO_" + atual.situacao(),
+						"Pedido " + atual.situacao().name().toLowerCase() + " não permite alterações.");
+			acao.apply(s);
+			return s.pedido(id, false);
+		});
+	}
+
+	// Recusa quantidades fora do intervalo permitido.
+	private static void quantidade(int q) {
+		if (q < 1 || q > 10000)
+			throw Falha.invalido("Quantidade entre 1 e 10000.");
 	}
 
 	private static String texto(String s, String nome, int limite) {
@@ -147,15 +246,18 @@ public final class Restaurante {
 
 		return s.trim();
 	}
-	
-	 private static String imagem(String s) {
-	        String valor = opcional(s, 1000);
-	        if (valor.isEmpty() || valor.matches("assets/[a-zA-Z0-9_-]+\\.(png|jpg|jpeg|webp|svg)")) return valor;
-	        try {
-	            URI uri = URI.create(valor);
-	            if ("https".equalsIgnoreCase(uri.getScheme()) && uri.getHost() != null && uri.getUserInfo() == null) return valor;
-	        } catch (IllegalArgumentException ignored) { }
-	   
-	        throw Falha.invalido("Imagem deve ser recurso em assets/ ou URL HTTPS sem credenciais.");
-    }
+
+	private static String imagem(String s) {
+		String valor = opcional(s, 1000);
+		if (valor.isEmpty() || valor.matches("assets/[a-zA-Z0-9_-]+\\.(png|jpg|jpeg|webp|svg)"))
+			return valor;
+		try {
+			URI uri = URI.create(valor);
+			if ("https".equalsIgnoreCase(uri.getScheme()) && uri.getHost() != null && uri.getUserInfo() == null)
+				return valor;
+		} catch (IllegalArgumentException ignored) {
+		}
+
+		throw Falha.invalido("Imagem deve ser recurso em assets/ ou URL HTTPS sem credenciais.");
+	}
 }
