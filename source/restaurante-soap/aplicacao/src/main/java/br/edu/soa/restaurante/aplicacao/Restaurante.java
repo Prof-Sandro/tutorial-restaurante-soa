@@ -260,4 +260,19 @@ public final class Restaurante {
 
 		throw Falha.invalido("Imagem deve ser recurso em assets/ ou URL HTTPS sem credenciais.");
 	}
+
+	public Produto consultarProduto(long id) {
+		
+		return repositorio.transacao(s -> s.produto(id,	 false));
+	}
+
+	public List<Produto> listarProdutosPorCategoria(long categoriaId) {
+		// TODO Auto-generated method stub
+		return repositorio.transacao(s ->{
+			 s.categoria(categoriaId);
+			 
+		return  s.produtos().stream().filter(p -> p.categoriaId() == categoriaId)
+				.toList();
+		});
+	}
 }
