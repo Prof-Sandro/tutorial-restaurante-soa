@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Finalidade: Criar MesaService.wsdl usando o XSD da aula 33. -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://restaurante.soa.edu.br/v2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://restaurante.soa.edu.br/v2" name="MesaService">
+  <!-- Relaciona os tipos XML usados pelas mensagens. -->
+  <types>
+    <xs:schema>
+      <xs:import namespace="http://restaurante.soa.edu.br/v2" schemaLocation="restaurante.xsd"/>
+    </xs:schema>
+  </types>
+  <message name="ErroNegocio">
+    <part name="fault" element="tns:ErroNegocio"/>
+  </message>
+  <message name="criarMesa">
+    <part name="parameters" element="tns:criarMesa"/>
+  </message>
+  <message name="criarMesaResponse">
+    <part name="parameters" element="tns:criarMesaResponse"/>
+  </message>
+  <message name="consultarMesa">
+    <part name="parameters" element="tns:consultarMesa"/>
+  </message>
+  <message name="consultarMesaResponse">
+    <part name="parameters" element="tns:consultarMesaResponse"/>
+  </message>
+  <message name="listarMesas">
+    <part name="parameters" element="tns:listarMesas"/>
+  </message>
+  <message name="listarMesasResponse">
+    <part name="parameters" element="tns:listarMesasResponse"/>
+  </message>
+  <message name="atualizarMesa">
+    <part name="parameters" element="tns:atualizarMesa"/>
+  </message>
+  <message name="atualizarMesaResponse">
+    <part name="parameters" element="tns:atualizarMesaResponse"/>
+  </message>
+  <message name="excluirMesa">
+    <part name="parameters" element="tns:excluirMesa"/>
+  </message>
+  <message name="excluirMesaResponse">
+    <part name="parameters" element="tns:excluirMesaResponse"/>
+  </message>
+  <!-- Define as operações do contrato abstrato. -->
+  <portType name="MesaServicePortType">
+    <operation name="criarMesa">
+      <input message="tns:criarMesa"/>
+      <output message="tns:criarMesaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="consultarMesa">
+      <input message="tns:consultarMesa"/>
+      <output message="tns:consultarMesaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="listarMesas">
+      <input message="tns:listarMesas"/>
+      <output message="tns:listarMesasResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="atualizarMesa">
+      <input message="tns:atualizarMesa"/>
+      <output message="tns:atualizarMesaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="excluirMesa">
+      <input message="tns:excluirMesa"/>
+      <output message="tns:excluirMesaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+  </portType>
+  <!-- Relaciona as operações ao protocolo e ao formato SOAP. -->
+  <binding name="MesaServiceBinding" type="tns:MesaServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="criarMesa">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/criarMesa"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="consultarMesa">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/consultarMesa"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="listarMesas">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/listarMesas"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="atualizarMesa">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/atualizarMesa"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="excluirMesa">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/excluirMesa"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <!-- Agrupa as portas e o endereço de publicação. -->
+  <service name="MesaService">
+    <port name="MesaPort" binding="tns:MesaServiceBinding">
+      <soap:address location="http://localhost:8080/restaurante/soap/mesas"/>
+    </port>
+  </service>
+</definitions>
