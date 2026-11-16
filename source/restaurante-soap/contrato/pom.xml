@@ -1,9 +1,58 @@
+<!-- Finalidade: Configurar o módulo e suas dependências. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- Versão do formato do documento POM, não do Maven instalado. -->
   <modelVersion>4.0.0</modelVersion>
+  <!-- Herda a configuração do POM identificado por estas coordenadas. -->
   <parent>
     <groupId>br.edu.soa</groupId>
     <artifactId>restaurante-soap</artifactId>
     <version>2.0.0</version>
   </parent>
   <artifactId>contrato</artifactId>
+  <packaging>jar</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>jakarta.xml.ws</groupId>
+      <artifactId>jakarta.xml.ws-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.jws</groupId>
+      <artifactId>jakarta.jws-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+    </dependency>
+  </dependencies>
+  <!-- Configura as ferramentas e recursos do build. -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.sun.xml.ws</groupId>
+        <!-- Executa wsimport para gerar Java a partir dos WSDLs escritos pelo aluno. -->
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <version>4.0.3</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>wsimport</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <wsdlDirectory>src/main/resources/wsdl</wsdlDirectory>
+          <wsdlFiles>
+            <wsdlFile>MesaService.wsdl</wsdlFile>
+            <wsdlFile>CategoriaService.wsdl</wsdlFile>
+            <wsdlFile>ProdutoService.wsdl</wsdlFile>
+            <wsdlFile>PedidoService.wsdl</wsdlFile>
+          </wsdlFiles>
+          <packageName>br.edu.soa.restaurante.soap</packageName>
+          <wsdlLocation>/wsdl/*</wsdlLocation>
+          <xnocompile>true</xnocompile>
+          <keep>true</keep>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
