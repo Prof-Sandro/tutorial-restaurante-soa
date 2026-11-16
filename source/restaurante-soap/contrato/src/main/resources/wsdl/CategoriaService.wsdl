@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Finalidade: Criar CategoriaService.wsdl usando o XSD da aula 33. -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://restaurante.soa.edu.br/v2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://restaurante.soa.edu.br/v2" name="CategoriaService">
+  <!-- Relaciona os tipos XML usados pelas mensagens. -->
+  <types>
+    <xs:schema>
+      <xs:import namespace="http://restaurante.soa.edu.br/v2" schemaLocation="restaurante.xsd"/>
+    </xs:schema>
+  </types>
+  <message name="ErroNegocio">
+    <part name="fault" element="tns:ErroNegocio"/>
+  </message>
+  <message name="criarCategoria">
+    <part name="parameters" element="tns:criarCategoria"/>
+  </message>
+  <message name="criarCategoriaResponse">
+    <part name="parameters" element="tns:criarCategoriaResponse"/>
+  </message>
+  <message name="consultarCategoria">
+    <part name="parameters" element="tns:consultarCategoria"/>
+  </message>
+  <message name="consultarCategoriaResponse">
+    <part name="parameters" element="tns:consultarCategoriaResponse"/>
+  </message>
+  <message name="listarCategorias">
+    <part name="parameters" element="tns:listarCategorias"/>
+  </message>
+  <message name="listarCategoriasResponse">
+    <part name="parameters" element="tns:listarCategoriasResponse"/>
+  </message>
+  <message name="atualizarCategoria">
+    <part name="parameters" element="tns:atualizarCategoria"/>
+  </message>
+  <message name="atualizarCategoriaResponse">
+    <part name="parameters" element="tns:atualizarCategoriaResponse"/>
+  </message>
+  <message name="excluirCategoria">
+    <part name="parameters" element="tns:excluirCategoria"/>
+  </message>
+  <message name="excluirCategoriaResponse">
+    <part name="parameters" element="tns:excluirCategoriaResponse"/>
+  </message>
+  <!-- Define as operações do contrato abstrato. -->
+  <portType name="CategoriaServicePortType">
+    <operation name="criarCategoria">
+      <input message="tns:criarCategoria"/>
+      <output message="tns:criarCategoriaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="consultarCategoria">
+      <input message="tns:consultarCategoria"/>
+      <output message="tns:consultarCategoriaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="listarCategorias">
+      <input message="tns:listarCategorias"/>
+      <output message="tns:listarCategoriasResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="atualizarCategoria">
+      <input message="tns:atualizarCategoria"/>
+      <output message="tns:atualizarCategoriaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="excluirCategoria">
+      <input message="tns:excluirCategoria"/>
+      <output message="tns:excluirCategoriaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+  </portType>
+  <!-- Relaciona as operações ao protocolo e ao formato SOAP. -->
+  <binding name="CategoriaServiceBinding" type="tns:CategoriaServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="criarCategoria">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/criarCategoria"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="consultarCategoria">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/consultarCategoria"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="listarCategorias">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/listarCategorias"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="atualizarCategoria">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/atualizarCategoria"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="excluirCategoria">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/excluirCategoria"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <!-- Agrupa as portas e o endereço de publicação. -->
+  <service name="CategoriaService">
+    <port name="CategoriaPort" binding="tns:CategoriaServiceBinding">
+      <soap:address location="http://localhost:8080/restaurante/soap/categorias"/>
+    </port>
+  </service>
+</definitions>
