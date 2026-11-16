@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Finalidade: Criar ProdutoService.wsdl usando o XSD da aula 33. -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://restaurante.soa.edu.br/v2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://restaurante.soa.edu.br/v2" name="ProdutoService">
+  <!-- Relaciona os tipos XML usados pelas mensagens. -->
+  <types>
+    <xs:schema>
+      <xs:import namespace="http://restaurante.soa.edu.br/v2" schemaLocation="restaurante.xsd"/>
+    </xs:schema>
+  </types>
+  <message name="ErroNegocio">
+    <part name="fault" element="tns:ErroNegocio"/>
+  </message>
+  <message name="criarProduto">
+    <part name="parameters" element="tns:criarProduto"/>
+  </message>
+  <message name="criarProdutoResponse">
+    <part name="parameters" element="tns:criarProdutoResponse"/>
+  </message>
+  <message name="consultarProduto">
+    <part name="parameters" element="tns:consultarProduto"/>
+  </message>
+  <message name="consultarProdutoResponse">
+    <part name="parameters" element="tns:consultarProdutoResponse"/>
+  </message>
+  <message name="listarProdutos">
+    <part name="parameters" element="tns:listarProdutos"/>
+  </message>
+  <message name="listarProdutosResponse">
+    <part name="parameters" element="tns:listarProdutosResponse"/>
+  </message>
+  <message name="atualizarProduto">
+    <part name="parameters" element="tns:atualizarProduto"/>
+  </message>
+  <message name="atualizarProdutoResponse">
+    <part name="parameters" element="tns:atualizarProdutoResponse"/>
+  </message>
+  <message name="excluirProduto">
+    <part name="parameters" element="tns:excluirProduto"/>
+  </message>
+  <message name="excluirProdutoResponse">
+    <part name="parameters" element="tns:excluirProdutoResponse"/>
+  </message>
+  <message name="listarProdutosPorCategoria">
+    <part name="parameters" element="tns:listarProdutosPorCategoria"/>
+  </message>
+  <message name="listarProdutosPorCategoriaResponse">
+    <part name="parameters" element="tns:listarProdutosPorCategoriaResponse"/>
+  </message>
+  <!-- Define as operações do contrato abstrato. -->
+  <portType name="ProdutoServicePortType">
+    <operation name="criarProduto">
+      <input message="tns:criarProduto"/>
+      <output message="tns:criarProdutoResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="consultarProduto">
+      <input message="tns:consultarProduto"/>
+      <output message="tns:consultarProdutoResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="listarProdutos">
+      <input message="tns:listarProdutos"/>
+      <output message="tns:listarProdutosResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="atualizarProduto">
+      <input message="tns:atualizarProduto"/>
+      <output message="tns:atualizarProdutoResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="excluirProduto">
+      <input message="tns:excluirProduto"/>
+      <output message="tns:excluirProdutoResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="listarProdutosPorCategoria">
+      <input message="tns:listarProdutosPorCategoria"/>
+      <output message="tns:listarProdutosPorCategoriaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+  </portType>
+  <!-- Relaciona as operações ao protocolo e ao formato SOAP. -->
+  <binding name="ProdutoServiceBinding" type="tns:ProdutoServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="criarProduto">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/criarProduto"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="consultarProduto">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/consultarProduto"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="listarProdutos">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/listarProdutos"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="atualizarProduto">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/atualizarProduto"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="excluirProduto">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/excluirProduto"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="listarProdutosPorCategoria">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/listarProdutosPorCategoria"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <!-- Agrupa as portas e o endereço de publicação. -->
+  <service name="ProdutoService">
+    <port name="ProdutoPort" binding="tns:ProdutoServiceBinding">
+      <soap:address location="http://localhost:8080/restaurante/soap/produtos"/>
+    </port>
+  </service>
+</definitions>
