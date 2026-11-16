@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Finalidade: Criar restaurante.xsd na pasta de contratos SOAP. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://restaurante.soa.edu.br/v2" targetNamespace="http://restaurante.soa.edu.br/v2" elementFormDefault="qualified">
+  <xs:simpleType name="SituacaoMesa">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LIVRE"/>
+      <xs:enumeration value="OCUPADA"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="SituacaoPedido">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ABERTO"/>
+      <xs:enumeration value="FECHADO"/>
+      <xs:enumeration value="CANCELADO"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="Mesa">
+    <!-- Define os elementos e sua ordem dentro do tipo XML. -->
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="numero" type="xs:int"/>
+      <xs:element name="situacao" type="tns:SituacaoMesa"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Categoria">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="nome" type="xs:string"/>
+      <xs:element name="descricao" type="xs:string"/>
+      <xs:element name="ativo" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Produto">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="categoriaId" type="xs:long"/>
+      <xs:element name="nome" type="xs:string"/>
+      <xs:element name="descricao" type="xs:string"/>
+      <xs:element name="imagem" type="xs:string"/>
+      <xs:element name="preco" type="xs:decimal"/>
+      <xs:element name="porcao" type="xs:string"/>
+      <xs:element name="disponivel" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ItemPedido">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="produtoId" type="xs:long"/>
+      <xs:element name="nomeProduto" type="xs:string"/>
+      <xs:element name="quantidade" type="xs:int"/>
+      <xs:element name="precoUnitario" type="xs:decimal"/>
+      <xs:element name="subtotal" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="Pedido">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+      <xs:element name="mesaId" type="xs:long"/>
+      <xs:element name="dataHora" type="xs:string"/>
+      <xs:element name="situacao" type="tns:SituacaoPedido"/>
+      <xs:element name="itens" type="tns:ItemPedido" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="total" type="xs:decimal"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ErroNegocio">
+    <xs:sequence>
+      <xs:element name="codigo" type="xs:string"/>
+      <xs:element name="mensagem" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="MesaEntrada">
+    <xs:sequence>
+      <xs:element name="numero" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="CategoriaEntrada">
+    <xs:sequence>
+      <xs:element name="nome" type="xs:string"/>
+      <xs:element name="descricao" type="xs:string"/>
+      <xs:element name="ativo" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ProdutoEntrada">
+    <xs:sequence>
+      <xs:element name="categoriaId" type="xs:long"/>
+      <xs:element name="nome" type="xs:string"/>
+      <xs:element name="descricao" type="xs:string"/>
+      <xs:element name="imagem" type="xs:string"/>
+      <xs:element name="preco" type="xs:decimal"/>
+      <xs:element name="porcao" type="xs:string"/>
+      <xs:element name="disponivel" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ErroNegocio" type="tns:ErroNegocio"/>
+  <xs:element name="criarMesa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="mesa" type="tns:MesaEntrada"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="criarMesaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Mesa"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultarMesa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultarMesaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Mesa"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarMesas">
+    <xs:complexType>
+      <xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarMesasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Mesa" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="atualizarMesa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+        <xs:element name="mesa" type="tns:MesaEntrada"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="atualizarMesaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Mesa"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="excluirMesa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="excluirMesaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="criarCategoria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="categoria" type="tns:CategoriaEntrada"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="criarCategoriaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Categoria"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultarCategoria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultarCategoriaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Categoria"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarCategorias">
+    <xs:complexType>
+      <xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarCategoriasResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Categoria" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="atualizarCategoria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+        <xs:element name="categoria" type="tns:CategoriaEntrada"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="atualizarCategoriaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Categoria"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="excluirCategoria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="excluirCategoriaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="criarProduto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="produto" type="tns:ProdutoEntrada"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="criarProdutoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Produto"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultarProduto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultarProdutoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Produto"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarProdutos">
+    <xs:complexType>
+      <xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarProdutosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Produto" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="atualizarProduto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+        <xs:element name="produto" type="tns:ProdutoEntrada"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="atualizarProdutoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Produto"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="excluirProduto">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="excluirProdutoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="xs:boolean"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarProdutosPorCategoria">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="categoriaId" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarProdutosPorCategoriaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Produto" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="abrirPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="mesaId" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="abrirPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultarPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultarPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarPedidos">
+    <xs:complexType>
+      <xs:sequence>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarPedidosResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarPedidosPorMesa">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="mesaId" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="listarPedidosPorMesaResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="adicionarItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="pedidoId" type="xs:long"/>
+        <xs:element name="produtoId" type="xs:long"/>
+        <xs:element name="quantidade" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="adicionarItemResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="atualizarQuantidadeItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="pedidoId" type="xs:long"/>
+        <xs:element name="itemId" type="xs:long"/>
+        <xs:element name="quantidade" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="atualizarQuantidadeItemResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="removerItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="pedidoId" type="xs:long"/>
+        <xs:element name="itemId" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="removerItemResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fecharPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fecharPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cancelarPedido">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="id" type="xs:long"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cancelarPedidoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:Pedido"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

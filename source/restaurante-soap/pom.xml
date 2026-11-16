@@ -8,6 +8,8 @@
     	<module>dominio</module>
     	<module>aplicacao</module>
     	<module>infraestrutura</module>
+    	<module>contratato</module>
+    	<module>contrato</module>
     </modules>
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
