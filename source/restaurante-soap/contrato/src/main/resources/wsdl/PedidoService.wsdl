@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Finalidade: Criar PedidoService.wsdl usando o XSD da aula 33. -->
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://restaurante.soa.edu.br/v2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://restaurante.soa.edu.br/v2" name="PedidoService">
+  <!-- Relaciona os tipos XML usados pelas mensagens. -->
+  <types>
+    <xs:schema>
+      <xs:import namespace="http://restaurante.soa.edu.br/v2" schemaLocation="restaurante.xsd"/>
+    </xs:schema>
+  </types>
+  <message name="ErroNegocio">
+    <part name="fault" element="tns:ErroNegocio"/>
+  </message>
+  <message name="abrirPedido">
+    <part name="parameters" element="tns:abrirPedido"/>
+  </message>
+  <message name="abrirPedidoResponse">
+    <part name="parameters" element="tns:abrirPedidoResponse"/>
+  </message>
+  <message name="consultarPedido">
+    <part name="parameters" element="tns:consultarPedido"/>
+  </message>
+  <message name="consultarPedidoResponse">
+    <part name="parameters" element="tns:consultarPedidoResponse"/>
+  </message>
+  <message name="listarPedidos">
+    <part name="parameters" element="tns:listarPedidos"/>
+  </message>
+  <message name="listarPedidosResponse">
+    <part name="parameters" element="tns:listarPedidosResponse"/>
+  </message>
+  <message name="listarPedidosPorMesa">
+    <part name="parameters" element="tns:listarPedidosPorMesa"/>
+  </message>
+  <message name="listarPedidosPorMesaResponse">
+    <part name="parameters" element="tns:listarPedidosPorMesaResponse"/>
+  </message>
+  <message name="adicionarItem">
+    <part name="parameters" element="tns:adicionarItem"/>
+  </message>
+  <message name="adicionarItemResponse">
+    <part name="parameters" element="tns:adicionarItemResponse"/>
+  </message>
+  <message name="atualizarQuantidadeItem">
+    <part name="parameters" element="tns:atualizarQuantidadeItem"/>
+  </message>
+  <message name="atualizarQuantidadeItemResponse">
+    <part name="parameters" element="tns:atualizarQuantidadeItemResponse"/>
+  </message>
+  <message name="removerItem">
+    <part name="parameters" element="tns:removerItem"/>
+  </message>
+  <message name="removerItemResponse">
+    <part name="parameters" element="tns:removerItemResponse"/>
+  </message>
+  <message name="fecharPedido">
+    <part name="parameters" element="tns:fecharPedido"/>
+  </message>
+  <message name="fecharPedidoResponse">
+    <part name="parameters" element="tns:fecharPedidoResponse"/>
+  </message>
+  <message name="cancelarPedido">
+    <part name="parameters" element="tns:cancelarPedido"/>
+  </message>
+  <message name="cancelarPedidoResponse">
+    <part name="parameters" element="tns:cancelarPedidoResponse"/>
+  </message>
+  <!-- Define as operações do contrato abstrato. -->
+  <portType name="PedidoServicePortType">
+    <operation name="abrirPedido">
+      <input message="tns:abrirPedido"/>
+      <output message="tns:abrirPedidoResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="consultarPedido">
+      <input message="tns:consultarPedido"/>
+      <output message="tns:consultarPedidoResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="listarPedidos">
+      <input message="tns:listarPedidos"/>
+      <output message="tns:listarPedidosResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="listarPedidosPorMesa">
+      <input message="tns:listarPedidosPorMesa"/>
+      <output message="tns:listarPedidosPorMesaResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="adicionarItem">
+      <input message="tns:adicionarItem"/>
+      <output message="tns:adicionarItemResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="atualizarQuantidadeItem">
+      <input message="tns:atualizarQuantidadeItem"/>
+      <output message="tns:atualizarQuantidadeItemResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="removerItem">
+      <input message="tns:removerItem"/>
+      <output message="tns:removerItemResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="fecharPedido">
+      <input message="tns:fecharPedido"/>
+      <output message="tns:fecharPedidoResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+    <operation name="cancelarPedido">
+      <input message="tns:cancelarPedido"/>
+      <output message="tns:cancelarPedidoResponse"/>
+      <fault name="ErroNegocio" message="tns:ErroNegocio"/>
+    </operation>
+  </portType>
+  <!-- Relaciona as operações ao protocolo e ao formato SOAP. -->
+  <binding name="PedidoServiceBinding" type="tns:PedidoServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="abrirPedido">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/abrirPedido"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="consultarPedido">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/consultarPedido"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="listarPedidos">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/listarPedidos"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="listarPedidosPorMesa">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/listarPedidosPorMesa"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="adicionarItem">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/adicionarItem"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="atualizarQuantidadeItem">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/atualizarQuantidadeItem"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="removerItem">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/removerItem"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="fecharPedido">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/fecharPedido"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="cancelarPedido">
+      <soap:operation soapAction="http://restaurante.soa.edu.br/v2/cancelarPedido"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="ErroNegocio">
+        <soap:fault name="ErroNegocio" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <!-- Agrupa as portas e o endereço de publicação. -->
+  <service name="PedidoService">
+    <port name="PedidoPort" binding="tns:PedidoServiceBinding">
+      <soap:address location="http://localhost:8080/restaurante/soap/pedidos"/>
+    </port>
+  </service>
+</definitions>
