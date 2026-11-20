@@ -1,8 +1,5 @@
-<!-- Finalidade: Configurar o módulo e suas dependências. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <!-- Versão do formato do documento POM, não do Maven instalado. -->
   <modelVersion>4.0.0</modelVersion>
-  <!-- Herda a configuração do POM identificado por estas coordenadas. -->
   <parent>
     <groupId>br.edu.soa</groupId>
     <artifactId>restaurante-soap</artifactId>
@@ -10,72 +7,4 @@
   </parent>
   <artifactId>servidor</artifactId>
   <packaging>war</packaging>
-  <dependencies>
-    <dependency>
-      <groupId>br.edu.soa</groupId>
-      <artifactId>contrato</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>br.edu.soa</groupId>
-      <artifactId>infraestrutura</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.ws</groupId>
-      <!-- Runtime Metro utilizado por serviços e clientes SOAP. -->
-      <artifactId>jaxws-rt</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <!-- API Servlet oferecida pelo Tomcat na implantação. -->
-      <artifactId>jakarta.servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <!-- Banco em memória usado pelos testes; não equivale a validar MySQL Server. -->
-      <artifactId>h2</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <!-- API e suporte dos testes JUnit. -->
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <!-- Configura as ferramentas e recursos do build. -->
-  <build>
-    <finalName>restaurante</finalName>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <!-- Empacota os recursos e classes da aplicação web em WAR. -->
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <webResources>
-            <resource>
-              <directory>../contrato/src/main/resources/wsdl</directory>
-              <targetPath>WEB-INF/wsdl</targetPath>
-            </resource>
-          </webResources>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
