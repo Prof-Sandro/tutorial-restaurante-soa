@@ -275,4 +275,8 @@ public final class Restaurante {
 				.toList();
 		});
 	}
+	// Consulta todos os produtos pela porta de persistência.
+	public List<Produto> listarProdutos() {
+	    return repositorio.transacao(Repositorio.Sessao::produtos);
+	}
 }
