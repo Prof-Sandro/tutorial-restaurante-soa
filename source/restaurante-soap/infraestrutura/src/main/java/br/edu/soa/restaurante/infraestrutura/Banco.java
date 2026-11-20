@@ -11,6 +11,7 @@ public final class Banco {
     private Banco() {}
     // Recebe os dados externos, prepara o DataSource e aplica as migrações.
     public static DataSource configurar(String url, String usuario, String senha) {
+    	 carregarDriver(url);
         if (url == null || usuario == null || senha == null) throw new IllegalStateException("Configure DB_URL, DB_USER e DB_PASSWORD.");
         DataSource ds = new SimplesDataSource(url, usuario, senha);
         Flyway.configure().dataSource(ds).locations("classpath:db/migration").load().migrate();
@@ -28,5 +29,19 @@ public final class Banco {
         public boolean isWrapperFor(Class<?> type) { return false; }
         // function toString() { [native code] }
         @Override public String toString() { return "DataSource[configuração externa]"; }
+    }
+    
+    private static void carregarDriver(String url) {
+        try {
+            if (url.startsWith("jdbc:mysql:")) {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+            } else if (url.startsWith("jdbc:h2:")) {
+                Class.forName("org.h2.Driver");
+            }
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException(
+                "Driver JDBC não encontrado.", e
+            );
+        }
     }
 }
