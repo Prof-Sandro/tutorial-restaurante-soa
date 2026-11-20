@@ -9,6 +9,7 @@
     	<module>aplicacao</module>
     	<module>infraestrutura</module>
     	<module>contrato</module>
+    	<module>servidor</module>
     </modules>
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
