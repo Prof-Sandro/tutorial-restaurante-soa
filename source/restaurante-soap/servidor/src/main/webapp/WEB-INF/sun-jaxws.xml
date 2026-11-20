@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Finalidade: Criar os descritores web.xml e sun-jaxws.xml e conferir a
+configuração de execução. -->
+<endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
+	<endpoint name="MesaService"
+		implementation="br.edu.soa.restaurante.MesaEndpoint"
+		wsdl="WEB-INF/wsdl/MesaService.wsdl"
+		service="{http://restaurante.soa.edu.br/v2}MesaService"
+		port="{http://restaurante.soa.edu.br/v2}MesaPort"
+		url-pattern="/soap/mesas" />
+	<endpoint name="CategoriaService"
+		implementation="br.edu.soa.restaurante.CategoriaEndpoint"
+		wsdl="WEB-INF/wsdl/CategoriaService.wsdl"
+		service="{http://restaurante.soa.edu.br/v2}CategoriaService"
+		port="{http://restaurante.soa.edu.br/v2}CategoriaPort"
+		url-pattern="/soap/categorias" />
+	<endpoint name="ProdutoService"
+		implementation="br.edu.soa.restaurante.ProdutoEndpoint"
+		wsdl="WEB-INF/wsdl/ProdutoService.wsdl"
+		service="{http://restaurante.soa.edu.br/v2}ProdutoService"
+		port="{http://restaurante.soa.edu.br/v2}ProdutoPort"
+		url-pattern="/soap/produtos" />
+	<endpoint name="PedidoService"
+		implementation="br.edu.soa.restaurante.PedidoEndpoint"
+		wsdl="WEB-INF/wsdl/PedidoService.wsdl"
+		service="{http://restaurante.soa.edu.br/v2}PedidoService"
+		port="{http://restaurante.soa.edu.br/v2}PedidoPort"
+		url-pattern="/soap/pedidos" />
+</endpoints>

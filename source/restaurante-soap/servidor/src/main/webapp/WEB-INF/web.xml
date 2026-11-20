@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Finalidade: Criar os descritores web.xml e sun-jaxws.xml e conferir a
+configuração de execução. -->
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" version="6.0">
+	<listener>
+		<listener-class>br.edu.soa.restaurante.Contexto</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
+	</listener>
+	<filter>
+		<filter-name>autenticacao</filter-name>
+		<filter-class>br.edu.soa.restaurante.AutenticacaoFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>autenticacao</filter-name>
+		<url-pattern>/soap/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>soap</servlet-name>
+		<servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>soap</servlet-name>
+		<url-pattern>/soap/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>cardapio</servlet-name>
+		<servlet-class>br.edu.soa.restaurante.CardapioServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>cardapio</servlet-name>
+		<url-pattern>/api/public/*</url-pattern>
+	</servlet-mapping>
+	<security-role>
+		<role-name>ADMIN</role-name>
+	</security-role>
+	<security-role>
+		<role-name>GARCOM</role-name>
+	</security-role>
+</web-app>
