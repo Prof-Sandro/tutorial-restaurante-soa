@@ -1,0 +1,31 @@
+<!-- Finalidade: Configurar o módulo e suas dependências. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <!-- Versão do formato do documento POM, não do Maven instalado. -->
+  <modelVersion>4.0.0</modelVersion>
+  <!-- Herda a configuração do POM identificado por estas coordenadas. -->
+  <parent>
+    <groupId>br.edu.soa</groupId>
+    <artifactId>restaurante-soap</artifactId>
+    <version>2.0.0</version>
+  </parent>
+  <artifactId>desktop</artifactId>
+  <packaging>jar</packaging>
+  <dependencies>
+    <dependency>
+      <groupId>br.edu.soa</groupId>
+      <artifactId>contrato</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.ws</groupId>
+      <!-- Runtime Metro utilizado por serviços e clientes SOAP. -->
+      <artifactId>jaxws-rt</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <!-- API e suporte dos testes JUnit. -->
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

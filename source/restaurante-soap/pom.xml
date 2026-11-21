@@ -10,6 +10,7 @@
     	<module>infraestrutura</module>
     	<module>contrato</module>
     	<module>servidor</module>
+    	<module>desktop</module>
     </modules>
     <properties>
         <maven.compiler.release>17</maven.compiler.release>
