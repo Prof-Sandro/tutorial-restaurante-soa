@@ -1,81 +1,126 @@
-<!-- Finalidade: Configurar o módulo e suas dependências. -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <!-- Versão do formato do documento POM, não do Maven instalado. -->
-  <modelVersion>4.0.0</modelVersion>
-  <!-- Herda a configuração do POM identificado por estas coordenadas. -->
-  <parent>
-    <groupId>br.edu.soa</groupId>
-    <artifactId>restaurante-soap</artifactId>
-    <version>2.0.0</version>
-  </parent>
-  <artifactId>servidor</artifactId>
-  <packaging>war</packaging>
-  <dependencies>
-    <dependency>
-      <groupId>br.edu.soa</groupId>
-      <artifactId>contrato</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>br.edu.soa</groupId>
-      <artifactId>infraestrutura</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.ws</groupId>
-      <!-- Runtime Metro utilizado por serviços e clientes SOAP. -->
-      <artifactId>jaxws-rt</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.servlet</groupId>
-      <!-- API Servlet oferecida pelo Tomcat na implantação. -->
-      <artifactId>jakarta.servlet-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <!-- Banco em memória usado pelos testes; não equivale a validar MySQL Server. -->
-      <artifactId>h2</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <!-- API e suporte dos testes JUnit. -->
-      <artifactId>junit-jupiter</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.tomcat.embed</groupId>
-      <artifactId>tomcat-embed-core</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <!-- Configura as ferramentas e recursos do build. -->
-  <build>
-    <finalName>restaurante</finalName>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <!-- Empacota os recursos e classes da aplicação web em WAR. -->
-        <artifactId>maven-war-plugin</artifactId>
-        <configuration>
-          <webResources>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- POM pai do projeto multimódulo -->
+    <parent>
+        <groupId>br.edu.soa</groupId>
+        <artifactId>restaurante-soap</artifactId>
+        <version>2.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <!-- Módulo web executado pelo Tomcat -->
+    <artifactId>servidor</artifactId>
+    <packaging>war</packaging>
+
+    <dependencies>
+
+        <!-- Contratos SOAP -->
+        <dependency>
+            <groupId>br.edu.soa</groupId>
+            <artifactId>contrato</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Implementação de persistência -->
+        <dependency>
+            <groupId>br.edu.soa</groupId>
+            <artifactId>infraestrutura</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Runtime SOAP Metro -->
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+        </dependency>
+
+        <!-- API Servlet disponibilizada pelo Tomcat -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Conversão de objetos Java para JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- Dependências de testes -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>br.edu.soa</groupId>
+            <artifactId>desktop</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+
+        <!-- Nome do WAR gerado: restaurante.war -->
+        <finalName>restaurante</finalName>
+
+        <resources>
             <resource>
-              <directory>../contrato/src/main/resources/wsdl</directory>
-              <targetPath>WEB-INF/wsdl</targetPath>
+                <directory>src/main/resources</directory>
             </resource>
-          </webResources>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+        </resources>
+
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+
+                <configuration>
+                    <webResources>
+
+                        <!-- Cardápio HTML, CSS e JavaScript -->
+                        <resource>
+                            <directory>${project.basedir}/../../../cardapio-web</directory>
+                            <targetPath>cardapio</targetPath>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </resource>
+
+                        <!-- Arquivos WSDL -->
+                        <resource>
+                            <directory>${project.basedir}/../contrato/src/main/resources/wsdl</directory>
+                            <targetPath>WEB-INF/wsdl</targetPath>
+                        </resource>
+
+                    </webResources>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
 </project>

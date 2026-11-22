@@ -1,0 +1,374 @@
+/* Finalidade: Criar style.css do cardápio e ligá-lo ao HTML. */
+:root {
+	color-scheme: light;
+	--verde: #244539;
+	--papel: #f7f5ef;
+	--tinta: #24392e;
+	--linha: #dedfd4;
+	--suave: #566057
+}
+
+* {
+	box-sizing: border-box
+}
+
+body {
+	margin: 0;
+	background: var(--papel);
+	color: var(--tinta);
+	font: 16px/1.6 "Segoe UI", sans-serif
+}
+
+a {
+	color: inherit
+}
+
+button, input {
+	font: inherit
+}
+
+button, a, input {
+	touch-action: manipulation
+}
+
+button {
+	cursor: pointer
+}
+
+header {
+	max-width: 1320px;
+	margin: auto;
+	padding: 28px 48px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border-bottom: 1px solid var(--linha)
+}
+
+.marca {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	text-decoration: none;
+	font-size: 17px;
+	letter-spacing: 2px;
+	font-weight: 700
+}
+
+.marca small {
+	display: block;
+	font-size: 9px;
+	letter-spacing: 2px;
+	font-weight: 500
+}
+
+.selo {
+	border: 1px solid var(--verde);
+	border-radius: 50%;
+	width: 46px;
+	height: 46px;
+	display: grid;
+	place-items: center;
+	font-family: Georgia, serif;
+	letter-spacing: -3px;
+	padding-right: 3px
+}
+
+.mesa {
+	background: #e4e9dc;
+	padding: 7px 15px;
+	border-radius: 30px;
+	font-size: 13px
+}
+
+main {
+	max-width: 1224px;
+	margin: auto;
+	padding: 0 24px 64px
+}
+
+.abertura {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+	min-height: 470px;
+	gap: 40px
+}
+
+.eyebrow {
+	font-size: 11px;
+	letter-spacing: 3px;
+	font-weight: 700;
+	color: #687550;
+	margin-bottom: 10px
+}
+
+h1, h2, h3 {
+	font-family: Georgia, serif;
+	font-weight: 400;
+	line-height: 1.1
+}
+
+h1 {
+	font-size: clamp(40px, 5vw, 66px);
+	letter-spacing: -2px;
+	margin: 16px 0 24px
+}
+
+h2 {
+	font-size: 36px;
+	margin: 8px 0 22px
+}
+
+.abertura p:not(.eyebrow) {
+	color: var(--suave)
+}
+
+.abertura img {
+	width: 100%;
+	height: auto
+}
+
+.atalho {
+	display: inline-block;
+	margin-top: 18px;
+	text-decoration: none;
+	border-bottom: 1px solid #8a947a;
+	font-size: 14px;
+	padding-bottom: 5px
+}
+
+.atalho span {
+	margin-left: 22px
+}
+
+.barra {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+	border-top: 1px solid var(--linha);
+	padding-top: 28px
+}
+
+.pesquisa {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	font-size: 12px;
+	color: var(--suave)
+}
+
+input {
+	background: transparent;
+	border: 1px solid #a8afa0;
+	border-radius: 5px;
+	padding: 11px 14px;
+	width: 290px;
+	color: var(--tinta)
+}
+
+#categorias {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 9px;
+	margin: 12px 0 25px
+}
+
+#categorias button, #tentar {
+	border: 1px solid #b4beaa;
+	border-radius: 30px;
+	background: transparent;
+	padding: 8px 18px;
+	color: var(--verde);
+	font-size: 14px
+}
+
+#categorias button[aria-pressed=true], #tentar {
+	background: var(--verde);
+	border-color: var(--verde);
+	color: white
+}
+
+.grade {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 24px
+}
+
+.prato {
+	background: #fff;
+	border: 1px solid var(--linha);
+	border-radius: 10px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column
+}
+
+.prato img {
+	width: 100%;
+	height: 210px;
+	object-fit: cover;
+	background: #eceee1
+}
+
+.prato .detalhes {
+	padding: 22px;
+	display: flex;
+	flex-direction: column;
+	flex: 1
+}
+
+.prato h3 {
+	font-size: 25px;
+	margin: 0 0 10px
+}
+
+.prato p {
+	font-size: 14px;
+	color: var(--suave);
+	margin: 0 0 16px
+}
+
+.prato .porcao {
+	font-size: 12px;
+	margin-top: auto
+}
+
+.prato .preco {
+	font-size: 18px;
+	font-weight: 600;
+	color: var(--verde);
+	margin-bottom: 0
+}
+
+.indisponivel {
+	font-size: 12px;
+	padding: 3px 8px;
+	background: #f6ead9;
+	color: #805018;
+	border-radius: 3px;
+	align-self: flex-start;
+	margin-bottom: 12px
+}
+
+#status {
+	font-size: 14px;
+	color: var(--suave)
+}
+
+footer {
+	padding: 40px 24px;
+	background: var(--verde);
+	color: #f7f5ef;
+	text-align: center;
+	font-size: 13px
+}
+
+footer strong {
+	font-family: Georgia, serif;
+	font-size: 25px;
+	font-weight: 400
+}
+
+.skip {
+	position: absolute;
+	left: 12px;
+	top: -80px;
+	background: white;
+	padding: 10px;
+	z-index: 2
+}
+
+.skip:focus {
+	top: 12px
+}
+
+:focus-visible {
+	outline: 3px solid #a56a1c;
+	outline-offset: 4px
+}
+
+[hidden] {
+	display: none !important
+}
+
+@media ( max-width :800px) {
+	header {
+		padding: 20px 24px
+	}
+	.abertura {
+		gap: 15px;
+		min-height: 400px
+	}
+	.grade {
+		grid-template-columns: repeat(2, minmax(0, 1fr))
+	}
+}
+
+@media ( max-width :540px) {
+	header {
+		padding: 18px 20px
+	}
+	.marca {
+		font-size: 13px;
+		gap: 9px;
+		letter-spacing: 1px
+	}
+	.marca small {
+		font-size: 7px;
+		letter-spacing: 1px
+	}
+	.selo {
+		width: 36px;
+		height: 36px
+	}
+	.mesa {
+		font-size: 11px;
+		padding: 5px 10px
+	}
+	main {
+		padding: 0 20px 40px
+	}
+	.abertura {
+		grid-template-columns: 1fr;
+		gap: 0;
+		padding-top: 28px
+	}
+	.abertura img {
+		max-width: 360px;
+		justify-self: center
+	}
+	h1 {
+		font-size: 44px
+	}
+	.abertura p {
+		font-size: 14px
+	}
+	.barra {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0
+	}
+	h2 {
+		font-size: 30px
+	}
+	.pesquisa input {
+		width: 100%
+	}
+	#categorias {
+		flex-wrap: nowrap;
+		overflow: auto;
+		padding: 6px 3px 14px
+	}
+	#categorias button {
+		white-space: nowrap
+	}
+	.grade {
+		grid-template-columns: 1fr;
+		gap: 18px
+	}
+	.prato img {
+		height: 220px
+	}
+}

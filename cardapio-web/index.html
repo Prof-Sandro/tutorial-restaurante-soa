@@ -1,0 +1,63 @@
+<!doctype html>
+<!-- Finalidade: Criar app.js e ligá-lo ao HTML para consultar o catálogo público. -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#244539">
+<title>Casa da Mesa • Cardápio</title>
+<link rel="stylesheet" href="style.css">
+<script src="app.js" defer></script>
+</head>
+<body>
+	<a class="skip" href="#produtos">Ir para os pratos</a>
+	<header>
+		<a class="marca" href="#titulo" aria-label="Casa da Mesa, início"><span
+			class="selo" aria-hidden="true">CM</span><span>CASA DA MESA<small>COZINHA
+					FEITA PARA COMPARTILHAR</small></span></a><span id="mesa" class="mesa">Bem-vindo</span>
+	</header>
+	<main>
+		<section class="abertura" aria-labelledby="titulo">
+			<div>
+				<p class="eyebrow">À MESA, COM CALMA</p>
+				<h1 id="titulo">
+					Boas conversas.<br>Sabores de casa.
+				</h1>
+				<p>
+					Escolha o que combina com o seu momento.<br>Para fazer seu
+					pedido, chame nosso garçom.
+				</p>
+				<a class="atalho" href="#menu">Explore o cardápio <span
+					aria-hidden="true">↓</span></a>
+			</div>
+			<img
+				src="https://raw.githubusercontent.com/Prof-Sandro/restaurante-imagens/main/produtos/lasanha.jpg"
+				alt="Lasanha servida em porção individual" width="480" height="380">
+		</section>
+		<section id="menu" aria-labelledby="cardapio-titulo">
+			<div class="barra">
+				<div>
+					<p class="eyebrow">DA NOSSA COZINHA</p>
+					<h2 id="cardapio-titulo">O que vai ser hoje?</h2>
+				</div>
+				<label class="pesquisa"><span>Buscar no cardápio</span><input
+					id="busca" type="search" placeholder="Nome ou ingrediente…"
+					maxlength="160"></label>
+			</div>
+			<nav id="categorias" aria-label="Categorias do cardápio"></nav>
+			<p id="status" role="status" aria-live="polite">Buscando os
+				sabores de hoje…</p>
+			<button id="tentar" type="button" hidden>Tentar novamente</button>
+			<div id="produtos" class="grade" tabindex="-1"></div>
+		</section>
+	</main>
+	<footer>
+		<strong>Casa da Mesa</strong>
+		<p>Comida boa, do primeiro ao último encontro.</p>
+		<p>Preços em reais. Informe alergias e restrições alimentares ao
+			garçom.</p>
+		<a id="qr" href="../api/public/qr?mesa=1" hidden>Ver QR Code desta
+			mesa</a>
+	</footer>
+</body>
+</html>
